@@ -451,7 +451,7 @@ actions.edit_register = function(prompt_bufnr)
   local updated_value = vim.fn.input("Edit [" .. selection.value .. "] ❯ ", selection.content)
   vim.fn.inputrestore()
   if updated_value ~= selection.content then
-    vim.fn.setreg(selection.value, updated_value)
+    vim.fn.setreg(string.lower(selection.value), updated_value)
     selection.content = updated_value
   end
 
@@ -462,6 +462,7 @@ actions.edit_register = function(prompt_bufnr)
       v.content = updated_value
     end
   end
+  picker:refresh()
 end
 
 --- Paste the selected register into the buffer
