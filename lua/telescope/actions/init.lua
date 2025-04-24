@@ -447,6 +447,11 @@ actions.edit_register = function(prompt_bufnr)
   local selection = action_state.get_selected_entry()
   local picker = action_state.get_current_picker(prompt_bufnr)
 
+  if string.find("%:.", selection.value, 1, true) then
+    -- %, : and . are read-only registers
+    return false
+  end
+
   vim.fn.inputsave()
   local updated_value = vim.fn.input("Edit [" .. selection.value .. "] ❯ ", selection.content)
   vim.fn.inputrestore()
